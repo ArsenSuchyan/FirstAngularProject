@@ -1,0 +1,18 @@
+<div class="movie-card">
+  <div class="movie-image">
+    <img [src]="movie.img" alt="{{ movie.original_title }}" />
+  </div>
+  <div class="movie-details">
+    <h2>{{ movie.original_title }}</h2>
+    <p>{{ movie.overview }}</p>
+    <p>Рейтинг: {{ movie.vote_average }}</p>
+    <p>Дата випуску {{ movie.release_date }}</p>
+    <button class="details">Детальніше</button>
+    <button class="favorite" (click)="addToFavorites()">
+      Додати до улюблених
+    </button>
+    <button class="watch-list" (click)="addToWatchList()">
+      Додати до списку перегляду
+    </button>
+  </div>
+</div>
