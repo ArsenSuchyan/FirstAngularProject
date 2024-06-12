@@ -32,9 +32,13 @@
           flex-direction: column;
   gap: 15px;
 }
+.movie-details__overview {
+  min-height: 145.6px;
+}
 
 h2 {
   font-size: 30px;
+  min-height: 78px;
 }
 
 button {

@@ -1,12 +1,13 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DateOfIssuePipe } from '../../pipes/date-of-issue.pipe';
 
 @Component({
   selector: 'app-movie-card',
   standalone: true,
-  imports: [CommonModule],
   templateUrl: './movie-card.component.html',
   styleUrl: './movie-card.component.scss',
+  imports: [CommonModule, DateOfIssuePipe],
 })
 export class MovieCardComponent implements OnInit {
   @Input() movie: any;
@@ -15,13 +16,15 @@ export class MovieCardComponent implements OnInit {
 
   public data: any;
 
+  public id: number = Infinity;
+
   ngOnInit() {
-    this.data = this.movie;
+    this.id = this.movie.id;
   }
   addToFavorites() {
-    this.addToFavorite.emit(this.data);
+    this.addToFavorite.emit(this.id);
   }
   addToWatchList() {
-    this.addToWatchLists.emit(this.data);
+    this.addToWatchLists.emit(this.id);
   }
 }

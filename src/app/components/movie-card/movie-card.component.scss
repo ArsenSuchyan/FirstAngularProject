@@ -21,10 +21,15 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+
+  &__overview {
+    min-height: 145.6px;
+  }
 }
 
 h2 {
   font-size: 30px;
+  min-height: 78px;
 }
 
 button {

@@ -4,9 +4,9 @@
   </div>
   <div class="movie-details">
     <h2>{{ movie.original_title }}</h2>
-    <p>{{ movie.overview }}</p>
+    <p class="movie-details__overview">{{ movie.overview }}</p>
     <p>Рейтинг: {{ movie.vote_average }}</p>
-    <p>Дата випуску {{ movie.release_date }}</p>
+    <p>Дата випуску: {{ movie.release_date | dateOfIssue }}</p>
     <button class="details">Детальніше</button>
     <button class="favorite" (click)="addToFavorites()">
       Додати до улюблених
