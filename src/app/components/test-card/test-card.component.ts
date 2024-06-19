@@ -1,15 +1,16 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { CardModule } from 'primeng/card';
+import { ButtonModule } from 'primeng/button';
 import { DateOfIssuePipe } from '../../pipes/date-of-issue.pipe';
 
 @Component({
-  selector: 'app-movie-card',
+  selector: 'app-test-card',
   standalone: true,
-  templateUrl: './movie-card.component.html',
-  styleUrl: './movie-card.component.scss',
-  imports: [CommonModule, DateOfIssuePipe],
+  templateUrl: './test-card.component.html',
+  styleUrl: './test-card.component.scss',
+  imports: [CardModule, ButtonModule, DateOfIssuePipe],
 })
-export class MovieCardComponent implements OnInit {
+export class TestCardComponent {
   @Input() movie: any;
   @Output() addToFavorite = new EventEmitter<any>();
   @Output() addToWatchLists = new EventEmitter<any>();

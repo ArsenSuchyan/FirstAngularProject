@@ -1,6 +1,6 @@
 <div class="background">
   <div class="container">
-    <div class="movie-list">
+    <!-- <div class="movie-list">
       <app-movie-card
         *ngFor="let movie of movies"
         [movie]="movie"
@@ -8,6 +8,16 @@
         (addToWatchLists)="showWatchList($event)"
       >
       </app-movie-card>
+    </div> -->
+
+    <div class="movie-list">
+      <app-test-card
+        *ngFor="let movie of movies"
+        [movie]="movie"
+        (addToFavorite)="showFavorite($event)"
+        (addToWatchLists)="showWatchList($event)"
+      >
+      </app-test-card>
     </div>
 
     <div class="user-preferences">

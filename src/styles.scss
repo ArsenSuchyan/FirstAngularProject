@@ -37,7 +37,7 @@ body {
   height: 100%;
 }
 
-/* FORM */
+// /* FORM */
 input,
 button,
 textarea {
@@ -64,5 +64,20 @@ textarea {
 }
 
 // -------------------------------------------- FONTS
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:regular,700,900);
+
+.background {
+  background-color: rgb(53, 19, 4);
+}
+
+.container {
+  max-width: 1330px;
+  padding: 0 15px;
+  margin: 0 auto;
+  color: antiquewhite;
+  font-family: Roboto;
+  line-height: 1.3;
+}
