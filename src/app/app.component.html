@@ -1,1 +1,35 @@
-<app-movie-list></app-movie-list>
+<header class="header">
+  <h1 class="header__title">Movie Gallery</h1>
+  <nav class="header__activities">
+    <ul class="header__menu">
+      <li class="header__activity">
+        <a href="#" routerLink="/favorites">My favorites</a>
+      </li>
+      <li class="header__activity">
+        <a href="#" routerLink="/watch-list">WatchList</a>
+      </li>
+    </ul>
+  </nav>
+</header>
+<main class="main">
+  <aside class="side-bar">
+    <ul class="side-bar__menu">
+      <li class="side-bar__item">
+        <a href="#" routerLink="/now-playing">Now Playing</a>
+      </li>
+      <li class="side-bar__item">
+        <a href="#" routerLink="/popular">Popular</a>
+      </li>
+      <li class="side-bar__item">
+        <a href="#" routerLink="/top-rate">Top Rate</a>
+      </li>
+      <li class="side-bar__item">
+        <a href="#" routerLink="/upcoming">Upcoming</a>
+      </li>
+    </ul>
+  </aside>
+  <div class="display">
+    <router-outlet></router-outlet>
+  </div>
+</main>
+<footer class="footer">footer</footer>

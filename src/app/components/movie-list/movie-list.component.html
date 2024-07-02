@@ -1,12 +1,7 @@
 <div class="background">
   <div class="container">
     <div class="movie-list">
-      <app-movie-card
-        *ngFor="let movie of movies"
-        [movie]="movie"
-        (addToFavorite)="showFavorite($event)"
-        (addToWatchLists)="showWatchList($event)"
-      >
+      <app-movie-card *ngFor="let movie of movies" [movie]="movie">
       </app-movie-card>
     </div>
 

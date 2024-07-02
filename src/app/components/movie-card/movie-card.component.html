@@ -1,18 +1,46 @@
 <div class="movie-card">
   <div class="movie-image">
-    <img [src]="movie.img" alt="{{ movie.original_title }}" />
+    <img
+      [src]="'https://image.tmdb.org/t/p/w500' + movie.backdrop_path"
+      alt="{{ movie.original_title }}"
+    />
   </div>
   <div class="movie-details">
     <h2>{{ movie.original_title }}</h2>
-    <p class="movie-details__overview">{{ movie.overview }}</p>
     <p>Рейтинг: {{ movie.vote_average }}</p>
     <p>Дата випуску: {{ movie.release_date | dateOfIssue }}</p>
-    <button class="details">Детальніше</button>
-    <button class="favorite" (click)="addToFavorites()">
-      Додати до улюблених
+    <button class="details" [routerLink]="'/movie-details/' + movie.id">
+      Детальніше
     </button>
-    <button class="watch-list" (click)="addToWatchList()">
-      Додати до списку перегляду
-    </button>
+    @if (this.pagePath === 'favorites' ) {
+    <div class="movie-details__activities">
+      <button
+        class="favorite--chosen"
+        title="Прибрати з улюблених"
+        (click)="removeFromFavorites(movie)"
+      ></button>
+    </div>
+    } @else if(this.pagePath === 'watch-list') {
+    <button
+      class="watch-list--chosen"
+      title="Прибрати зі списку перегляду"
+      (click)="removeFromWatchList(movie)"
+    ></button>
+    } @else {
+    <div class="movie-details__activities">
+      <button
+        class="favorite"
+        title="Додати до улюблених"
+        (click)="addToFavorites(movie)"
+      ></button>
+      <button
+        class="watch-list"
+        title="Додати до списку перегляду"
+        (click)="addToWatchList(movie)"
+      ></button>
+    </div>
+    }
   </div>
 </div>
+
+<!-- pagePath === 'watch-list' -->

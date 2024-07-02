@@ -1,0 +1,86 @@
+.header {
+  padding: 30px 20px;
+  display: grid;
+  grid-template-columns: 25% 1fr;
+  align-items: center;
+  border-bottom: 1px solid rgb(53, 19, 4);
+  // .header__title
+  background-color: antiquewhite;
+  color: rgb(53, 19, 4);
+  position: fixed;
+  min-width: 100%;
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-size: 30px;
+    font-weight: 900;
+    &::after {
+      content: "";
+      background: url(../assets/img/television-svgrepo-com.svg) center / cover
+        no-repeat;
+      height: 25px;
+      width: 25px;
+    }
+  }
+
+  // .header__activities
+
+  &__activities {
+  }
+
+  &__menu {
+    display: flex;
+    gap: 50px;
+  }
+
+  // .header__activity
+
+  &__activity {
+    & > * {
+      font-size: 25px;
+      font-weight: 700;
+    }
+  }
+}
+.main {
+  padding-top: 96.8px;
+  flex: 1 0 auto;
+  background-color: rgb(53, 19, 4);
+  color: antiquewhite;
+}
+.side-bar {
+  background-color: antiquewhite;
+  color: rgb(53, 19, 4);
+  font-weight: 700;
+  position: fixed;
+  min-height: 100%;
+  width: 20%;
+
+  // .side-bar__menu
+
+  &__menu {
+  }
+
+  // .side-bar__item
+
+  &__item {
+    padding: 15px 0 15px 20px;
+    border: 1px solid rgb(53, 19, 4);
+    & > * {
+      font-size: 25px;
+    }
+  }
+}
+.display {
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+.footer {
+  background-color: antiquewhite;
+  color: rgb(53, 19, 4);
+}
+
+a:hover {
+  text-decoration: underline;
+}

@@ -66,3 +66,22 @@ textarea {
 // -------------------------------------------- FONTS
 
 @import url(https://fonts.googleapis.com/css?family=Roboto:regular,700,900);
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+* {
+  font-family: Roboto;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 20px;
+  gap: 10px;
+}
