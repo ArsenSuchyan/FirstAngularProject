@@ -1,30 +1,38 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DateOfIssuePipe } from '../../pipes/date-of-issue.pipe';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { MovieServiceService } from '../../services/movie-service.service';
 
 @Component({
   selector: 'app-movie-card',
   standalone: true,
   templateUrl: './movie-card.component.html',
   styleUrl: './movie-card.component.scss',
-  imports: [CommonModule, DateOfIssuePipe],
+  imports: [CommonModule, DateOfIssuePipe, RouterLink],
 })
-export class MovieCardComponent implements OnInit {
+export class MovieCardComponent {
+  constructor(
+    private movieService: MovieServiceService,
+    private route: ActivatedRoute
+  ) {}
   @Input() movie: any;
-  @Output() addToFavorite = new EventEmitter<any>();
-  @Output() addToWatchLists = new EventEmitter<any>();
 
-  public data: any;
+  pagePath = this.route.snapshot.routeConfig?.path;
 
-  public id: number = Infinity;
-
-  ngOnInit() {
-    this.id = this.movie.id;
+  addToFavorites(movie: any) {
+    this.movieService.addToFavorite(movie);
   }
-  addToFavorites() {
-    this.addToFavorite.emit(this.id);
+
+  addToWatchList(movie: any) {
+    this.movieService.addToWatchList(movie);
   }
-  addToWatchList() {
-    this.addToWatchLists.emit(this.id);
+
+  removeFromFavorites(movie: any) {
+    this.movieService.removeFromFavorites(movie);
+  }
+
+  removeFromWatchList(movie: any) {
+    this.movieService.removeFromWatchList(movie);
   }
 }

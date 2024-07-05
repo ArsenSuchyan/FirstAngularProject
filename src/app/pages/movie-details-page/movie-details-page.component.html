@@ -1,0 +1,40 @@
+<div class="movie-card">
+  <div class="movie-image">
+    <img
+      [src]="'https://image.tmdb.org/t/p/w500' + chosenMovie.backdrop_path"
+      alt="{{ chosenMovie.original_title }}"
+    />
+  </div>
+  <div class="movie-details">
+    <h2>{{ chosenMovie.original_title }}</h2>
+    <p>{{ chosenMovie.overview }}</p>
+    <p>Рейтинг: {{ chosenMovie.vote_average }}</p>
+    <p>Дата випуску: {{ chosenMovie.release_date | dateOfIssue }}</p>
+
+    @if (!isInFavorites) {
+    <button class="favorite--add" (click)="addToFavorites(chosenMovie)">
+      Додати до улюблених
+    </button>
+    } @else {
+    <button class="favorite--remove" (click)="removeFromFavorites(chosenMovie)">
+      Прибрати з улюблених
+    </button>
+    } @if (!isInWatchList) {
+    <button class="watch-list-add" (click)="addToWatchList(chosenMovie)">
+      Додати до списку перегляду
+    </button>
+    } @else {
+    <button
+      class="watch-list--remove"
+      (click)="removeFromWatchList(chosenMovie)"
+    >
+      Прибрати зі списку перегляду
+    </button>
+    }
+
+    <!-- 
+     <button class="watch-list" (click)="addToWatchList()">
+       Додати до списку перегляду
+     </button> -->
+  </div>
+</div>

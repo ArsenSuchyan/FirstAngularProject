@@ -1,0 +1,83 @@
+.movie-card {
+  padding: 50px 50px;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  gap: 25px;
+  align-items: center;
+}
+.movie-image img {
+  aspect-ratio: 1/1;
+  width: 100%;
+}
+.movie-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  & h2 {
+    font-size: 50px;
+    font-weight: 700;
+  }
+}
+
+button {
+  background-color: antiquewhite;
+  border-radius: 30px;
+  color: rgb(31, 26, 26);
+  font-weight: 700;
+  padding: 20px 20px;
+  align-self: center;
+  transition: box-shadow 0.3s;
+  @media (any-hover: hover) {
+    &:hover {
+      box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+        rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+    }
+  }
+}
+
+.favorite--add {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  &:after {
+    content: "";
+    background: url(../../../assets/img/heart.svg) center / cover no-repeat;
+    height: 20px;
+    width: 20px;
+  }
+}
+.favorite--remove {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  &:after {
+    content: "";
+    background: url(../../../assets/img/heart-remove.svg) center / cover
+      no-repeat;
+    height: 20px;
+    width: 20px;
+  }
+}
+.watch-list-add {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  &:after {
+    content: "";
+    background: url(../../../assets/img/play.svg) center / cover no-repeat;
+    height: 20px;
+    width: 20px;
+  }
+}
+.watch-list--remove {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  &:after {
+    content: "";
+    background: url(../../../assets/img/play-remove.svg) center / cover
+      no-repeat;
+    height: 20px;
+    width: 20px;
+  }
+}
