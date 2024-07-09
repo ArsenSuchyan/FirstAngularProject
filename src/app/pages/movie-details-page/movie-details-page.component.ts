@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MovieServiceService } from '../../services/movie-service.service';
 import { DateOfIssuePipe } from '../../pipes/date-of-issue.pipe';
+import { Movie } from '../../models/movie.model';
 
 @Component({
   selector: 'app-movie-details-page',
@@ -17,17 +18,44 @@ export class MovieDetailsPageComponent implements OnInit {
   ) {}
   movieID = Number(this.route.snapshot.paramMap.get('id'));
 
-  chosenMovie = this.movieService.getMovie(this.movieID);
+  // ngOnInit() {
+  //   let chosenMovie: Movie | null | undefined = null;
+  //   this.movieService.getMovie(this.movieID)
+  //     ? (chosenMovie = this.movieService.getMovie(this.movieID))
+  //     : (chosenMovie = null);
 
-  isInFavorites = this.movieService
-    .getFavoriteMoviesList()
-    .includes(this.chosenMovie)
-    ? true
-    : false;
+  //   let isInFavorites = this.movieService
+  //     .getFavoriteMoviesList()
+  //     .includes(chosenMovie)
+  //     ? true
+  //     : false;
 
-  isInWatchList = this.movieService.getWatchList().includes(this.chosenMovie)
-    ? true
-    : false;
+  //   let isInWatchList = this.movieService.getWatchList().includes(chosenMovie)
+  //     ? true
+  //     : false;
+  // }
+
+  chosenMovie: Movie | null | undefined = null;
+  isInFavorites: boolean = false;
+  isInWatchList: boolean = false;
+
+  ngOnInit() {
+    this.chosenMovie = this.movieService.getMovie(this.movieID);
+
+    this.isInFavorites = this.movieService
+      .getFavoriteMoviesList()
+      .includes(this.chosenMovie)
+      ? true
+      : false;
+
+    this.isInWatchList = this.movieService
+      .getWatchList()
+      .includes(this.chosenMovie)
+      ? true
+      : false;
+    console.log(this.isInFavorites);
+    console.log(this.isInWatchList);
+  }
 
   addToFavorites(movie: any) {
     this.movieService.addToFavorite(movie);
@@ -43,10 +71,5 @@ export class MovieDetailsPageComponent implements OnInit {
 
   removeFromWatchList(movie: any) {
     this.movieService.removeFromWatchList(movie);
-  }
-
-  ngOnInit() {
-    console.log(this.isInFavorites);
-    console.log(this.isInWatchList);
   }
 }

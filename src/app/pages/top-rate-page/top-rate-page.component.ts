@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { topRatedMovies } from '../../../assets/mock-data';
 import { MovieCardComponent } from '../../components/movie-card/movie-card.component';
+import { MovieServiceService } from '../../services/movie-service.service';
+import { Movie } from '../../models/movie.model';
 
 @Component({
   selector: 'app-top-rate-page',
@@ -10,5 +11,16 @@ import { MovieCardComponent } from '../../components/movie-card/movie-card.compo
   imports: [MovieCardComponent],
 })
 export class TopRatePageComponent {
-  movies = topRatedMovies;
+  // movies = topRatedMovies;
+
+  constructor(public movieService: MovieServiceService) {}
+  movies: Movie[] = [];
+
+  ngOnInit() {
+    this.movieService.getTopRateList().subscribe((result) => {
+      this.movies = result.results;
+      // this.movieService.addToAllMovies(this.movies);
+      // this.movieService.setTopRateList(this.movies);
+    });
+  }
 }

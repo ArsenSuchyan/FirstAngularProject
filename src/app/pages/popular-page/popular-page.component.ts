@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { popularMovies } from '../../../assets/mock-data';
 import { MovieCardComponent } from '../../components/movie-card/movie-card.component';
+import { MovieServiceService } from '../../services/movie-service.service';
+import { Movie } from '../../models/movie.model';
 
 @Component({
   selector: 'app-popular-page',
@@ -10,5 +11,17 @@ import { MovieCardComponent } from '../../components/movie-card/movie-card.compo
   imports: [MovieCardComponent],
 })
 export class PopularPageComponent {
-  movies = popularMovies;
+  // movies = popularMovies;
+
+  constructor(public movieService: MovieServiceService) {}
+  movies: Movie[] = [];
+
+  ngOnInit() {
+    this.movieService.getPopularList().subscribe((result) => {
+      this.movies = result.results;
+      // this.movieService.addToAllMovies(this.movies);
+      // this.movieService.setPopularList(this.movies);
+      this.movieService.showMessage();
+    });
+  }
 }
