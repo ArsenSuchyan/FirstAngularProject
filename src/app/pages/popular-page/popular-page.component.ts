@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MovieCardComponent } from '../../components/movie-card/movie-card.component';
 import { MovieServiceService } from '../../services/movie-service.service';
 import { Movie } from '../../models/movie.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-popular-page',
@@ -10,18 +11,23 @@ import { Movie } from '../../models/movie.model';
   styleUrl: './popular-page.component.scss',
   imports: [MovieCardComponent],
 })
-export class PopularPageComponent {
+export class PopularPageComponent implements OnInit, OnDestroy {
   // movies = popularMovies;
 
   constructor(public movieService: MovieServiceService) {}
   movies: Movie[] = [];
+  private subscription: Subscription | undefined;
 
   ngOnInit() {
-    this.movieService.getPopularList().subscribe((result) => {
-      this.movies = result.results;
-      // this.movieService.addToAllMovies(this.movies);
-      // this.movieService.setPopularList(this.movies);
-      this.movieService.showMessage();
-    });
+    this.subscription = this.movieService
+      .getPopularList()
+      .subscribe((result) => {
+        this.movies = result.results;
+      });
+  }
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MovieCardComponent } from '../../components/movie-card/movie-card.component';
 import { MovieServiceService } from '../../services/movie-service.service';
 import { Movie } from '../../models/movie.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-upcoming-page',
@@ -10,15 +11,21 @@ import { Movie } from '../../models/movie.model';
   styleUrl: './upcoming-page.component.scss',
   imports: [MovieCardComponent],
 })
-export class UpcomingPageComponent {
+export class UpcomingPageComponent implements OnInit, OnDestroy {
   constructor(public movieService: MovieServiceService) {}
   movies: Movie[] = [];
+  private subscription: Subscription | undefined;
 
   ngOnInit() {
-    this.movieService.getUpcomingList().subscribe((result) => {
-      this.movies = result.results;
-      // this.movieService.addToAllMovies(this.movies);
-      // this.movieService.setUpcomingList(this.movies);
-    });
+    this.subscription = this.movieService
+      .getUpcomingList()
+      .subscribe((result) => {
+        this.movies = result.results;
+      });
+  }
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 }

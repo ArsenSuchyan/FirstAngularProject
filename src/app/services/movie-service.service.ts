@@ -1,6 +1,6 @@
 import { Injectable, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { ApiModel, Movie } from '../models/movie.model';
 
 @Injectable({
@@ -13,9 +13,17 @@ export class MovieServiceService {
 
   apiKey: string = 'b3343fd46dc12d206323968e2a599487';
 
-  favoriteMovies: any = [];
+  favoriteMoviesSubject = new Subject<Movie[]>();
+  favoriteMovies: Movie[] = [];
 
-  watchList: any = [];
+  watchList: Movie[] = [];
+
+  nowPlayingList: Movie[] = [];
+  popularList: Movie[] = [];
+  topRateList: Movie[] = [];
+  upcomingList: Movie[] = [];
+
+  allMovies: Movie[] = [];
 
   getNowPlayingList(): Observable<ApiModel> {
     return this.httpClient.get<ApiModel>(
@@ -38,93 +46,32 @@ export class MovieServiceService {
     );
   }
 
-  nowPlayingList: any = this.getNowPlayingList().subscribe((result) => {
-    this.nowPlayingList = result.results;
-    console.log(this.nowPlayingList);
-  });
-
-  popularList: any = this.getNowPlayingList().subscribe((result) => {
-    this.popularList = result.results;
-  });
-
-  topRatedList: any = this.getNowPlayingList().subscribe((result) => {
-    this.topRatedList = result.results;
-  });
-
-  upcomingList: any = this.getNowPlayingList().subscribe((result) => {
-    this.upcomingList = result.results;
-  });
-
-  allMovies: Movie[] = Array.from(
-    new Set([
-      this.nowPlayingList,
-      this.popularList,
-      this.topRatedList,
-      this.upcomingList,
-    ])
-  );
-
-  showMessage() {
-    console.log(this.allMovies);
+  getMovieById(movieID: number): Observable<Movie> {
+    return this.httpClient.get<Movie>(
+      `${this.baseApiUrl}/${movieID}?api_key=${this.apiKey}`
+    );
   }
 
-  // setNowPlayingList(movies: Movie[]): void {
-  //   this.popularList = movies;
-  //   this.allMovies = [
-  //     ...new Set([
-  //       ...this.nowPlayingList,
-  //       ...this.popularList,
-  //       ...this.topRatedList,
-  //       ...this.upcomingList,
-  //     ]),
-  //   ];
-  // }
-  // setPopularList(movies: Movie[]): void {
-  //   this.nowPlayingList = movies;
-  //   this.allMovies = [
-  //     ...new Set([
-  //       ...this.nowPlayingList,
-  //       ...this.popularList,
-  //       ...this.topRatedList,
-  //       ...this.upcomingList,
-  //     ]),
-  //   ];
-  // }
-  // setTopRateList(movies: Movie[]): void {
-  //   this.topRatedList = movies;
-  //   this.allMovies = [
-  //     ...new Set([
-  //       ...this.nowPlayingList,
-  //       ...this.popularList,
-  //       ...this.topRatedList,
-  //       ...this.upcomingList,
-  //     ]),
-  //   ];
-  // }
-  // setUpcomingList(movies: Movie[]): void {
-  //   this.upcomingList = movies;
-  //   this.allMovies = [
-  //     ...new Set([
-  //       ...this.nowPlayingList,
-  //       ...this.popularList,
-  //       ...this.topRatedList,
-  //       ...this.upcomingList,
-  //     ]),
-  //   ];
-  // }
-
-  getMovie(movieID: any) {
+  getMovie(movieID: number) {
     const chosenMovie = this.allMovies.find((movie) => movieID === movie.id);
-    console.log(this.popularList);
 
     return chosenMovie;
   }
 
+  // addToFavorite(movie: any) {
+  //   if (!this.favoriteMovies.some((el: { id: any }) => el.id === movie.id)) {
+  //     this.favoriteMovies.push(movie);
+  //   }
+  // }
+
   addToFavorite(movie: any) {
     if (!this.favoriteMovies.some((el: { id: any }) => el.id === movie.id)) {
       this.favoriteMovies.push(movie);
-      console.log(this.allMovies);
     }
+    this.favoriteMoviesSubject.next(this.favoriteMovies);
+    console.log(movie);
+    // console.log(this.favoriteMoviesSubject);
+    // console.log(this.favoriteMovies);
   }
 
   addToWatchList(movie: any) {
@@ -134,24 +81,29 @@ export class MovieServiceService {
   }
 
   getFavoriteMoviesList() {
-    console.log(this.nowPlayingList);
     return this.favoriteMovies;
   }
+
+  // getFavoriteMoviesList(): Observable<Movie[]> {
+  //   return this.favoriteMoviesSubject;
+  // }
 
   getWatchList() {
     return this.watchList;
   }
 
-  removeFromFavorites(movie: any) {
-    if (this.favoriteMovies.includes(movie)) {
-      const movieIndex = this.favoriteMovies.indexOf(movie);
+  removeFromFavorites(chosenMovie: Movie) {
+    if (
+      this.favoriteMovies.some((movie: Movie) => movie.id === chosenMovie.id)
+    ) {
+      const movieIndex = this.favoriteMovies.indexOf(chosenMovie);
       this.favoriteMovies.splice(movieIndex, 1);
     }
   }
 
-  removeFromWatchList(movie: any) {
-    if (this.watchList.includes(movie)) {
-      const movieIndex = this.watchList.indexOf(movie);
+  removeFromWatchList(chosenMovie: Movie) {
+    if (this.watchList.some((movie: Movie) => movie.id === chosenMovie.id)) {
+      const movieIndex = this.watchList.indexOf(chosenMovie);
       this.watchList.splice(movieIndex, 1);
     }
   }
