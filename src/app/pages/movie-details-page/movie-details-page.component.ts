@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MovieServiceService } from '../../services/movie-service.service';
 import { DateOfIssuePipe } from '../../pipes/date-of-issue.pipe';
+import { Movie } from '../../models/movie.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-movie-details-page',
@@ -10,24 +12,39 @@ import { DateOfIssuePipe } from '../../pipes/date-of-issue.pipe';
   styleUrl: './movie-details-page.component.scss',
   imports: [DateOfIssuePipe],
 })
-export class MovieDetailsPageComponent implements OnInit {
+export class MovieDetailsPageComponent implements OnInit, OnDestroy {
   constructor(
     private route: ActivatedRoute,
     private movieService: MovieServiceService
   ) {}
+
   movieID = Number(this.route.snapshot.paramMap.get('id'));
 
-  chosenMovie = this.movieService.getMovie(this.movieID);
+  chosenMovie: Movie | null | undefined = null;
+  isInFavorites: boolean = false;
+  isInWatchList: boolean = false;
 
-  isInFavorites = this.movieService
-    .getFavoriteMoviesList()
-    .includes(this.chosenMovie)
-    ? true
-    : false;
+  private subscription!: Subscription;
 
-  isInWatchList = this.movieService.getWatchList().includes(this.chosenMovie)
-    ? true
-    : false;
+  ngOnInit() {
+    this.subscription = this.movieService
+      .getMovieById(this.movieID)
+      .subscribe((result) => {
+        this.chosenMovie = result;
+
+        this.isInFavorites = this.movieService
+          .getFavoriteMoviesList()
+          .some((movie: Movie) => movie.id === this.chosenMovie?.id)
+          ? true
+          : false;
+
+        this.isInWatchList = this.movieService
+          .getWatchList()
+          .some((movie: Movie) => movie.id === this.chosenMovie?.id)
+          ? true
+          : false;
+      });
+  }
 
   addToFavorites(movie: any) {
     this.movieService.addToFavorite(movie);
@@ -45,8 +62,7 @@ export class MovieDetailsPageComponent implements OnInit {
     this.movieService.removeFromWatchList(movie);
   }
 
-  ngOnInit() {
-    console.log(this.isInFavorites);
-    console.log(this.isInWatchList);
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

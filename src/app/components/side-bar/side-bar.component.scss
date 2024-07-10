@@ -1,0 +1,11 @@
+.side-bar {
+  // .side-bar__item
+
+  &__item {
+    padding: 15px 0 15px 20px;
+    border: 1px solid rgb(53, 19, 4);
+    & > * {
+      font-size: 25px;
+    }
+  }
+}

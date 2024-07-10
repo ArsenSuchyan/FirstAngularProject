@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MovieCardComponent } from '../../components/movie-card/movie-card.component';
-import { nowPlayingMovies } from '../../../assets/mock-data';
+import { MovieServiceService } from '../../services/movie-service.service';
+import { Movie } from '../../models/movie.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-now-playing-page',
@@ -9,6 +11,23 @@ import { nowPlayingMovies } from '../../../assets/mock-data';
   styleUrl: './now-playing-page.component.scss',
   imports: [MovieCardComponent],
 })
-export class NowPlayingPageComponent {
-  movies = nowPlayingMovies;
+export class NowPlayingPageComponent implements OnInit, OnDestroy {
+  constructor(public movieService: MovieServiceService) {}
+
+  movies: Movie[] = [];
+  private subscription: Subscription | undefined;
+
+  ngOnInit() {
+    this.subscription = this.movieService
+      .getNowPlayingList()
+      .subscribe((result) => {
+        this.movies = result.results;
+      });
+  }
+
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+  }
 }

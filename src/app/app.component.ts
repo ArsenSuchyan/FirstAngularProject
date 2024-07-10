@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import {
   RouterOutlet,
   Router,
@@ -7,25 +7,36 @@ import {
   RouterLinkActive,
 } from '@angular/router';
 import { MovieCardComponent } from './components/movie-card/movie-card.component';
-import { MovieListComponent } from './components/movie-list/movie-list.component';
+import { MovieServiceService } from './services/movie-service.service';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { SideBarComponent } from './components/side-bar/side-bar.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
   imports: [
     RouterOutlet,
     MovieCardComponent,
-    MovieListComponent,
     RouterModule,
     RouterLink,
     RouterLinkActive,
+    HeaderComponent,
+    FooterComponent,
+    SideBarComponent,
   ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  constructor(private router: Router) {}
+export class AppComponent implements OnInit {
+  constructor(
+    private router: Router,
+    private movieService: MovieServiceService
+  ) {}
 
+  ngOnInit() {
+    // this.movieService.setDataFromAPI();
+  }
   navigateToFavorites() {
     this.router.navigate([{}]);
   }
