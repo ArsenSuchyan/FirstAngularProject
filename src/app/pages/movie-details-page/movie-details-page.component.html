@@ -1,15 +1,38 @@
 <div class="movie-card">
   <div class="movie-image">
     <img
-      [src]="'https://image.tmdb.org/t/p/w500' + chosenMovie.backdrop_path"
-      alt="{{ chosenMovie.original_title }}"
+      [src]="'https://image.tmdb.org/t/p/w500' + chosenMovie?.backdrop_path"
+      alt="{{ chosenMovie?.original_title }}"
     />
   </div>
   <div class="movie-details">
-    <h2>{{ chosenMovie.original_title }}</h2>
-    <p>{{ chosenMovie.overview }}</p>
-    <p>Рейтинг: {{ chosenMovie.vote_average }}</p>
-    <p>Дата випуску: {{ chosenMovie.release_date | dateOfIssue }}</p>
+    <h2>{{ chosenMovie?.original_title }}</h2>
+    <p>{{ chosenMovie?.overview }}</p>
+    <!-- <p>Рейтинг: {{ chosenMovie?.vote_average }}</p> -->
+    <div class="rating">
+      Рейтинг: @if (chosenMovie!.vote_average >= 2) {
+      <img src="/assets/img/star.svg" alt="star" class="star" />
+      } @else {
+      <img src="/assets/img/empty-star.svg" alt="star" class="star" />
+      } @if (chosenMovie!.vote_average >= 4) {
+      <img src="/assets/img/star.svg" alt="star" class="star" />
+      } @else {
+      <img src="/assets/img/empty-star.svg" alt="star" class="star" />
+      } @if (chosenMovie!.vote_average >= 8) {
+      <img src="/assets/img/star.svg" alt="star" class="star" />
+      } @else {
+      <img src="/assets/img/empty-star.svg" alt="star" class="star" />
+      } @if (chosenMovie!.vote_average >= 8) {
+      <img src="/assets/img/star.svg" alt="star" class="star" />
+      } @else {
+      <img src="/assets/img/empty-star.svg" alt="star" class="star" />
+      } @if (chosenMovie!.vote_average >= 10) {
+      <img src="/assets/img/star.svg" alt="star" class="star" />
+      } @else {
+      <img src="/assets/img/empty-star.svg" alt="star" class="star" />
+      }
+    </div>
+    <p>Дата випуску: {{ chosenMovie?.release_date }}</p>
 
     @if (!isInFavorites) {
     <button class="favorite--add" (click)="addToFavorites(chosenMovie)">
@@ -31,10 +54,5 @@
       Прибрати зі списку перегляду
     </button>
     }
-
-    <!-- 
-     <button class="watch-list" (click)="addToWatchList()">
-       Додати до списку перегляду
-     </button> -->
   </div>
 </div>

@@ -56,7 +56,7 @@
 
   &::after {
     content: "";
-    background: url(../../../assets/img/heart.svg) center / cover no-repeat;
+    background: url(/assets/img/heart.svg) center / cover no-repeat;
     height: 20px;
     width: 20px;
   }
@@ -67,7 +67,7 @@
 
   &::after {
     content: "";
-    background: url(../../../assets/img/play.svg) center / cover no-repeat;
+    background: url(/assets/img/play.svg) center / cover no-repeat;
     height: 20px;
     width: 20px;
   }
@@ -79,8 +79,7 @@
 
   &::after {
     content: "";
-    background: url(../../../assets/img/heart-remove.svg) center / cover
-      no-repeat;
+    background: url(/assets/img/heart-remove.svg) center / cover no-repeat;
     height: 20px;
     width: 20px;
   }
@@ -92,8 +91,7 @@
 
   &::after {
     content: "";
-    background: url(../../../assets/img/play-remove.svg) center / cover
-      no-repeat;
+    background: url(/assets/img/play-remove.svg) center / cover no-repeat;
     height: 20px;
     width: 20px;
   }
