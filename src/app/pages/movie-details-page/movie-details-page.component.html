@@ -8,7 +8,30 @@
   <div class="movie-details">
     <h2>{{ chosenMovie?.original_title }}</h2>
     <p>{{ chosenMovie?.overview }}</p>
-    <p>Рейтинг: {{ chosenMovie?.vote_average }}</p>
+    <!-- <p>Рейтинг: {{ chosenMovie?.vote_average }}</p> -->
+    <div class="rating">
+      Рейтинг: @if (chosenMovie!.vote_average >= 2) {
+      <img src="/assets/img/star.svg" alt="star" class="star" />
+      } @else {
+      <img src="/assets/img/empty-star.svg" alt="star" class="star" />
+      } @if (chosenMovie!.vote_average >= 4) {
+      <img src="/assets/img/star.svg" alt="star" class="star" />
+      } @else {
+      <img src="/assets/img/empty-star.svg" alt="star" class="star" />
+      } @if (chosenMovie!.vote_average >= 8) {
+      <img src="/assets/img/star.svg" alt="star" class="star" />
+      } @else {
+      <img src="/assets/img/empty-star.svg" alt="star" class="star" />
+      } @if (chosenMovie!.vote_average >= 8) {
+      <img src="/assets/img/star.svg" alt="star" class="star" />
+      } @else {
+      <img src="/assets/img/empty-star.svg" alt="star" class="star" />
+      } @if (chosenMovie!.vote_average >= 10) {
+      <img src="/assets/img/star.svg" alt="star" class="star" />
+      } @else {
+      <img src="/assets/img/empty-star.svg" alt="star" class="star" />
+      }
+    </div>
     <p>Дата випуску: {{ chosenMovie?.release_date }}</p>
 
     @if (!isInFavorites) {

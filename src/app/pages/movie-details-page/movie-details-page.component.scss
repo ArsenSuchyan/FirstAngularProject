@@ -79,3 +79,13 @@ button {
     width: 20px;
   }
 }
+
+.rating {
+  display: flex;
+  gap: 5px;
+}
+
+.star {
+  width: 20px;
+  height: 20px;
+}
